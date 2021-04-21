@@ -1,0 +1,106 @@
+version: '3'
+services:
+  eureka-server:
+    image: registry.cn-hangzhou.aliyuncs.com/xywu/eureka-server
+    restart: always
+    ports:
+      - 8761:8761
+    networks:
+      - network
+
+  api-gateway:
+    depends_on:
+      - eureka-server
+    image: registry.cn-hangzhou.aliyuncs.com/xywu/api-gateway
+    restart: always
+    links:
+      - eureka-server
+    ports:
+      - 9999:9999
+    networks:
+      - network
+
+  user-service:
+    depends_on:
+      - eureka-server
+    image: registry.cn-hangzhou.aliyuncs.com/xywu/user-service
+    links:
+      - eureka-server
+    ports:
+      - 12401:12401
+    networks:
+      - network
+
+  meeting-service:
+    depends_on:
+      - eureka-server
+    image: registry.cn-hangzhou.aliyuncs.com/xywu/meeting-service
+    ports:
+      - 12301:12301
+    links:
+      - eureka-server
+    networks:
+      - network
+
+  article-service:
+    depends_on:
+      - eureka-server
+    image: registry.cn-hangzhou.aliyuncs.com/xywu/article-service
+    ports:
+      - 12803:12803
+    links:
+      - eureka-server
+    networks:
+      - network
+
+  pcmember-service:
+    depends_on:
+      - eureka-server
+    image: registry.cn-hangzhou.aliyuncs.com/xywu/pcmember-service
+    ports:
+      - 12305:12305
+    links:
+      - eureka-server
+    networks:
+      - network
+
+  review-service:
+    depends_on:
+      - eureka-server
+    image: registry.cn-hangzhou.aliyuncs.com/xywu/review-service
+    ports:
+      - 12306:12306
+    links:
+      - eureka-server
+    networks:
+      - network
+
+  message-service:
+    depends_on:
+      - eureka-server
+    image: registry.cn-hangzhou.aliyuncs.com/xywu/message-service
+    ports:
+      - 12406:12406
+    links:
+      - eureka-server
+    networks:
+      - network
+
+  cyber-frontend:
+    image: registry.cn-hangzhou.aliyuncs.com/xywu/cyber-frontend
+    restart: always
+    ports:
+      - 1024:80
+    links:
+      - api-gateway
+    networks:
+      - network
+
+networks:
+  network: {}
+
+
+
+
+
+

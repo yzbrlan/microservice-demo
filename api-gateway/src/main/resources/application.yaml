@@ -1,0 +1,26 @@
+server:
+  port: ${SERVER_PORT:9999}
+
+spring:
+  application:
+    name: api-gateway
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+zuul:
+  max:
+    host:
+      connections: 10000
+  host:
+    socket-timeout-millis: 10000
+    connect-timeout-millis: 10000
+
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 10000
+  MaxTotalHttpConnections: 5000
+  MaxConnectionsPerHost: 1000

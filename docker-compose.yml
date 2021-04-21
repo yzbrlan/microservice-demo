@@ -1,0 +1,115 @@
+version: '3'
+services:
+  eureka-server:
+    build: eureka-server
+    image: cyberchair/eureka-server
+    restart: always
+    ports:
+      - 8761:8761
+    networks:
+      - network
+
+  api-gateway:
+    depends_on:
+      - eureka-server
+    build: api-gateway
+    image: cyberchair/api-gateway
+    restart: always
+    links:
+      - eureka-server
+    ports:
+      - 9999:9999
+    networks:
+      - network
+
+  user-service:
+    depends_on:
+      - eureka-server
+    build: user-service
+    image: cyberchair/user-service
+    links:
+      - eureka-server
+    ports:
+      - 12401:12401
+    networks:
+      - network
+
+  meeting-service:
+    depends_on:
+      - eureka-server
+    build: meeting-service
+    image: cyberchair/meeting-service
+    ports:
+      - 12301:12301
+    links:
+      - eureka-server
+    networks:
+      - network
+
+  article-service:
+    depends_on:
+      - eureka-server
+    build: article-service
+    image: cyberchair/article-service
+    ports:
+      - 12803:12803
+    links:
+      - eureka-server
+    networks:
+      - network
+
+  pcmember-service:
+    depends_on:
+      - eureka-server
+    build: pcmember-service
+    image: cyberchair/pcmember-service
+    ports:
+      - 12305:12305
+    links:
+      - eureka-server
+    networks:
+      - network
+
+  review-service:
+    depends_on:
+      - eureka-server
+    build: review-service
+    image: cyberchair/review-service
+    ports:
+      - 12306:12306
+    links:
+      - eureka-server
+    networks:
+      - network
+
+  message-service:
+    depends_on:
+      - eureka-server
+    build: message-service
+    image: cyberchair/message-service
+    ports:
+      - 12406:12406
+    links:
+      - eureka-server
+    networks:
+      - network
+
+  cyber-frontend:
+    build: Cyberchair_frontend
+    image: cyberchair/cyber-frontend
+    restart: always
+    ports:
+      - 1024:80
+    links:
+      - api-gateway
+    networks:
+      - network
+
+networks:
+  network: {}
+
+
+
+
+
+
