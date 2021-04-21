@@ -55,3 +55,6 @@
 
 ```docker-compose -f docker-compose.yml up -d```
 
+在 ip:1024 进行访问
+
+
