@@ -37,7 +37,7 @@
 
 #### 使用 image 直接启动
 
-`docker-compose -f docker-compose-image up -d`
+`docker-compose -f docker-compose-image.yml up -d`
 
 #### build之后启动
 首先对后端进行打包，在跟根目录中运行 
@@ -53,5 +53,5 @@
 
 利用 docker-compose 运行 
 
-```docker-compose up -d```
+```docker-compose -f docker-compose.yml up -d```
 
